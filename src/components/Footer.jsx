@@ -9,7 +9,7 @@ export default function Footer() {
             Event<span className="brand__accent">ia</span>
           </p>
           <p className="footer__note">
-            A student project for Web Programming — Assignment 2. Event data from the
+            Zainab Khalid Developer of this WebSite. Event data from the
             Ticketmaster Discovery API.
           </p>
         </div>
