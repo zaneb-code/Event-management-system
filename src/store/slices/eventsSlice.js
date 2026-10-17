@@ -1,42 +1,16 @@
-/**
- * ============================================================
- *  eventsSlice — everything fetched from Ticketmaster
- * ============================================================
- *
- * This slice demonstrates `createAsyncThunk`, which is Redux Toolkit's
- * built-in way to handle an API call. Each thunk automatically dispatches
- * three actions for us:
- *
- *    fetchEvents/pending     -> show the loading spinner
- *    fetchEvents/fulfilled   -> save the data
- *    fetchEvents/rejected    -> save the error message
- *
- * We listen for those in `extraReducers` below.
- */
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import * as api from '../../api/ticketmaster'
 import { todayAsApiDate } from '../../utils/format'
-
-/* ------------------------------------------------------------------
- *  Async thunks
- * ------------------------------------------------------------------ */
-
-/** Main events list — used by the Events page with search + filters. */
 export const fetchEvents = createAsyncThunk(
   'events/fetchEvents',
   async (params, { rejectWithValue }) => {
     try {
       return await api.fetchEvents(params)
     } catch (error) {
-      // rejectWithValue puts a clean string in action.payload instead of
-      // a full Error object (which Redux cannot serialise nicely).
       return rejectWithValue(error.message)
     }
   }
 )
-
-/** A short list of upcoming events for the home page. */
 export const fetchUpcomingEvents = createAsyncThunk(
   'events/fetchUpcomingEvents',
   async (_, { rejectWithValue }) => {
@@ -44,7 +18,6 @@ export const fetchUpcomingEvents = createAsyncThunk(
       const { events } = await api.fetchEvents({
         startDateTime: todayAsApiDate(),
         sort: 'date,asc',
-        countryCode: 'US',
         size: 6,
       })
       return events
@@ -77,12 +50,6 @@ export const fetchCategories = createAsyncThunk(
     }
   }
 )
-
-/* ------------------------------------------------------------------
- *  Slice
- * ------------------------------------------------------------------ */
-
-// Kept as a separate object so `resetFilters` can reuse it.
 export const defaultFilters = {
   keyword: '',
   city: '',
@@ -95,14 +62,14 @@ export const defaultFilters = {
 const initialState = {
   // Events list
   list: [],
-  listStatus: 'idle', // idle | loading | succeeded | failed
+  listStatus: 'idle',
   listError: null,
   page: { number: 0, size: 12, totalPages: 0, totalElements: 0 },
 
-  // The filter values currently typed/selected in the UI
+  
   filters: { ...defaultFilters },
 
-  // Home page
+  
   upcoming: [],
   upcomingStatus: 'idle',
   upcomingError: null,
@@ -122,10 +89,10 @@ const eventsSlice = createSlice({
   name: 'events',
   initialState,
   reducers: {
-    /** Merge one or more filter values, e.g. { keyword: 'rock' }. */
+    
     setFilters(state, action) {
       state.filters = { ...state.filters, ...action.payload }
-      state.page.number = 0 // any filter change sends us back to page 1
+      state.page.number = 0 
     },
 
     resetFilters(state) {
