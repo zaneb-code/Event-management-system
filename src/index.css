@@ -1,47 +1,27 @@
-/* ==================================================================
-   Eventia — global stylesheet
-   ------------------------------------------------------------------
-   One plain CSS file, organised top to bottom:
-
-     1. Design tokens (colours, spacing, radii)
-     2. Reset + base elements
-     3. Layout helpers (container, grid, section)
-     4. Buttons, inputs and other small UI pieces
-     5. Components (navbar, card, filters, toast, …)
-     6. Pages (hero, events, details, auth, my events)
-     7. Responsive breakpoints — all at the bottom so they are easy to find
-
-   No CSS framework is used, so every rule here is one we wrote.
-   ================================================================== */
-
-/* ------------------------------------------------------------------
-   1. Design tokens
-   ------------------------------------------------------------------ */
 :root {
-  /* Surfaces — a deep plum-black rather than pure grey */
-  --bg: #0c0a13;
-  --surface: #151121;
-  --surface-2: #1d1830;
-  --surface-3: #262040;
-  --border: #302945;
-  --border-strong: #433a5e;
 
-  /* Text */
-  --text: #f4f1fa;
-  --text-muted: #a69fba;
-  --text-dim: #776e8f;
+  --bg: #222831;
+  --surface: #272c35;
+  --surface-2: #2e343d;
+  --surface-3: #31363f;
+  --border: #3c424c;
+  --border-strong: #4e555f;
 
-  /* Brand accents */
-  --accent: #ff8a4c;
-  --accent-soft: #ffb288;
-  --accent-2: #a975ff;
-  --accent-3: #ff5d8f;
-  --gradient: linear-gradient(118deg, #ff8a4c 0%, #ff5d8f 52%, #a975ff 100%);
+  --text: #eeeeee;
+  --text-muted: #b2b9c1;
+  --text-dim: #868e99;
 
-  /* Feedback */
-  --success: #3ddc97;
-  --warn: #ffc94d;
-  --danger: #ff6b6b;
+
+  --accent: #76abae;
+  --accent-soft: #9cc6c8;
+  --accent-2: #5c9093;
+  --accent-3: #8fbcbe;
+  --gradient: linear-gradient(118deg, #76abae 0%, #8fbcbe 52%, #5c9093 100%);
+
+ 
+  --success: #7fbfa3;
+  --warn: #e2b872;
+  --danger: #e08c8c;
 
   /* Shape + motion */
   --radius-sm: 8px;
@@ -49,7 +29,7 @@
   --radius-lg: 22px;
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow: 0 14px 40px -12px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 10px 40px -8px rgba(255, 138, 76, 0.35);
+  --shadow-glow: 0 10px 40px -8px rgba(118, 171, 174, 0.35);
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 
   --font-head: 'Outfit', system-ui, sans-serif;
@@ -58,9 +38,7 @@
   --maxw: 1200px;
 }
 
-/* ------------------------------------------------------------------
-   2. Reset + base
-   ------------------------------------------------------------------ */
+
 *,
 *::before,
 *::after {
@@ -78,8 +56,8 @@ html {
 body {
   background-color: var(--bg);
   /* Two soft radial glows so the dark background isn't flat */
-  background-image: radial-gradient(900px 500px at 12% -5%, rgba(169, 117, 255, 0.16), transparent 70%),
-    radial-gradient(800px 420px at 92% 4%, rgba(255, 138, 76, 0.12), transparent 70%);
+  background-image: radial-gradient(900px 500px at 12% -5%, rgba(118, 171, 174, 0.16), transparent 70%),
+    radial-gradient(800px 420px at 92% 4%, rgba(118, 171, 174, 0.12), transparent 70%);
   background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-body);
@@ -137,12 +115,10 @@ code {
 }
 
 ::selection {
-  background: rgba(255, 138, 76, 0.3);
+  background: rgba(118, 171, 174, 0.3);
 }
 
-/* ------------------------------------------------------------------
-   3. Layout helpers
-   ------------------------------------------------------------------ */
+
 .app-shell {
   display: flex;
   flex-direction: column;
@@ -243,13 +219,13 @@ code {
 
 .btn--primary {
   background: var(--gradient);
-  color: #1a0f08;
+  color: #222831;
   box-shadow: var(--shadow-glow);
 }
 
 .btn--primary:hover {
-  box-shadow: 0 14px 44px -8px rgba(255, 138, 76, 0.5);
-  color: #1a0f08;
+  box-shadow: 0 14px 44px -8px rgba(118, 171, 174, 0.5);
+  color: #222831;
 }
 
 .btn--ghost {
@@ -265,25 +241,25 @@ code {
 }
 
 .btn--registered {
-  background: rgba(61, 220, 151, 0.12);
-  border-color: rgba(61, 220, 151, 0.45);
+  background: rgba(127, 191, 163, 0.12);
+  border-color: rgba(127, 191, 163, 0.45);
   color: var(--success);
 }
 
 .btn--registered:hover {
-  background: rgba(255, 107, 107, 0.12);
-  border-color: rgba(255, 107, 107, 0.5);
+  background: rgba(224, 140, 140, 0.12);
+  border-color: rgba(224, 140, 140, 0.5);
   color: var(--danger);
 }
 
 .btn--danger {
-  background: rgba(255, 107, 107, 0.1);
-  border-color: rgba(255, 107, 107, 0.4);
+  background: rgba(224, 140, 140, 0.1);
+  border-color: rgba(224, 140, 140, 0.4);
   color: var(--danger);
 }
 
 .btn--danger:hover {
-  background: rgba(255, 107, 107, 0.2);
+  background: rgba(224, 140, 140, 0.2);
 }
 
 .btn--disabled,
@@ -337,7 +313,7 @@ code {
 .input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(255, 138, 76, 0.16);
+  box-shadow: 0 0 0 3px rgba(118, 171, 174, 0.16);
 }
 
 .input--error {
@@ -367,8 +343,8 @@ select.input {
 }
 
 .tag--accent {
-  background: rgba(255, 138, 76, 0.14);
-  border-color: rgba(255, 138, 76, 0.4);
+  background: rgba(118, 171, 174, 0.14);
+  border-color: rgba(118, 171, 174, 0.4);
   color: var(--accent-soft);
 }
 
@@ -377,8 +353,8 @@ select.input {
 }
 
 .tag--warn {
-  background: rgba(255, 201, 77, 0.14);
-  border-color: rgba(255, 201, 77, 0.4);
+  background: rgba(226, 184, 114, 0.14);
+  border-color: rgba(226, 184, 114, 0.4);
   color: var(--warn);
 }
 
@@ -400,7 +376,7 @@ select.input {
 }
 
 .chip--active {
-  background: rgba(255, 138, 76, 0.15);
+  background: rgba(118, 171, 174, 0.15);
   border-color: var(--accent);
   color: var(--accent-soft);
 }
@@ -458,7 +434,7 @@ select.input {
 }
 
 .switch input:checked + .switch__track {
-  background: rgba(255, 138, 76, 0.25);
+  background: rgba(118, 171, 174, 0.25);
   border-color: var(--accent);
 }
 
@@ -481,7 +457,7 @@ select.input {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(12, 10, 19, 0.82);
+  background: rgba(34, 40, 49, 0.82);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
 }
@@ -515,7 +491,7 @@ select.input {
   height: 36px;
   border-radius: 11px;
   background: var(--gradient);
-  color: #1a0f08;
+  color: #222831;
   box-shadow: var(--shadow-glow);
 }
 
@@ -560,7 +536,7 @@ select.input {
 /* React Router adds .active to the matching NavLink */
 .navbar__links a.active {
   color: var(--text);
-  background: rgba(255, 138, 76, 0.13);
+  background: rgba(118, 171, 174, 0.13);
 }
 
 .badge {
@@ -570,7 +546,7 @@ select.input {
   display: grid;
   place-items: center;
   background: var(--gradient);
-  color: #1a0f08;
+  color: #222831;
   border-radius: 999px;
   font-size: 0.7rem;
   font-weight: 700;
@@ -599,7 +575,7 @@ select.input {
   place-items: center;
   border-radius: 50%;
   background: var(--gradient);
-  color: #1a0f08;
+  color: #222831;
   font-family: var(--font-head);
   font-size: 0.74rem;
   font-weight: 700;
@@ -727,20 +703,20 @@ select.input {
 
 .card__segment {
   left: 12px;
-  background: rgba(12, 10, 19, 0.75);
+  background: rgba(34, 40, 49, 0.75);
   border: 1px solid var(--border-strong);
   color: var(--text);
 }
 
 .card__flag {
   right: 12px;
-  background: rgba(61, 220, 151, 0.9);
-  color: #06281a;
+  background: rgba(127, 191, 163, 0.9);
+  color: #222831;
 }
 
 .card__flag--warn {
-  background: rgba(255, 201, 77, 0.92);
-  color: #2b1f00;
+  background: rgba(226, 184, 114, 0.92);
+  color: #222831;
 }
 
 .card__body {
@@ -926,7 +902,7 @@ select.input {
 }
 
 .notice--error .notice__icon {
-  background: rgba(255, 107, 107, 0.15);
+  background: rgba(224, 140, 140, 0.15);
   color: var(--danger);
 }
 
@@ -939,7 +915,7 @@ select.input {
 }
 
 .notice--success .notice__icon {
-  background: rgba(61, 220, 151, 0.15);
+  background: rgba(127, 191, 163, 0.15);
   color: var(--success);
 }
 
@@ -1033,26 +1009,26 @@ select.input {
 }
 
 .toast--success {
-  border-color: rgba(61, 220, 151, 0.5);
+  border-color: rgba(127, 191, 163, 0.5);
 }
 
 .toast--success .toast__icon {
   background: var(--success);
-  color: #06281a;
+  color: #222831;
 }
 
 .toast--error {
-  border-color: rgba(255, 107, 107, 0.5);
+  border-color: rgba(224, 140, 140, 0.5);
 }
 
 .toast--error .toast__icon {
   background: var(--danger);
-  color: #2b0505;
+  color: #222831;
 }
 
 .toast--info .toast__icon {
   background: var(--accent);
-  color: #1a0f08;
+  color: #222831;
 }
 
 .toast__close {
@@ -1084,7 +1060,7 @@ select.input {
 
 .searchbar:focus-within {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(255, 138, 76, 0.14);
+  box-shadow: 0 0 0 3px rgba(118, 171, 174, 0.14);
 }
 
 .searchbar__icon {
@@ -1237,11 +1213,11 @@ select.input {
 .pagination__num--active {
   background: var(--gradient);
   border-color: transparent;
-  color: #1a0f08;
+  color: #222831;
 }
 
 .pagination__num--active:hover {
-  color: #1a0f08;
+  color: #222831;
 }
 
 .pagination__dots {
@@ -1320,7 +1296,7 @@ select.input {
   position: absolute;
   inset: -40% 20% auto -10%;
   height: 620px;
-  background: radial-gradient(closest-side, rgba(255, 93, 143, 0.22), transparent);
+  background: radial-gradient(closest-side, rgba(118, 171, 174, 0.22), transparent);
   filter: blur(40px);
   pointer-events: none;
 }
@@ -1466,7 +1442,7 @@ select.input {
   text-align: left;
   background: linear-gradient(
     150deg,
-    hsl(var(--cat-hue, 260) 60% 16% / 0.85),
+    rgba(118, 171, 174, 0.16),
     var(--surface) 65%
   );
   border: 1px solid var(--border);
@@ -1478,8 +1454,8 @@ select.input {
 
 .category-card:hover {
   transform: translateY(-4px);
-  border-color: hsl(var(--cat-hue, 260) 70% 55% / 0.6);
-  box-shadow: 0 16px 40px -14px hsl(var(--cat-hue, 260) 70% 40% / 0.5);
+  border-color: rgba(118, 171, 174, 0.6);
+  box-shadow: 0 16px 40px -14px rgba(118, 171, 174, 0.3);
 }
 
 .category-card__emoji {
@@ -1528,8 +1504,8 @@ select.input {
   background: linear-gradient(
     to top,
     var(--bg) 2%,
-    rgba(12, 10, 19, 0.88) 38%,
-    rgba(12, 10, 19, 0.45) 100%
+    rgba(34, 40, 49, 0.88) 38%,
+    rgba(34, 40, 49, 0.45) 100%
   );
 }
 
@@ -1822,14 +1798,14 @@ select.input {
 }
 
 .form-banner--success {
-  background: rgba(61, 220, 151, 0.12);
-  border: 1px solid rgba(61, 220, 151, 0.4);
+  background: rgba(127, 191, 163, 0.12);
+  border: 1px solid rgba(127, 191, 163, 0.4);
   color: var(--success);
 }
 
 .form-banner--error {
-  background: rgba(255, 107, 107, 0.12);
-  border: 1px solid rgba(255, 107, 107, 0.4);
+  background: rgba(224, 140, 140, 0.12);
+  border: 1px solid rgba(224, 140, 140, 0.4);
   color: var(--danger);
 }
 
@@ -1918,7 +1894,7 @@ select.input {
   place-items: center;
   border-radius: 50%;
   background: var(--gradient);
-  color: #1a0f08;
+  color: #222831;
   font-family: var(--font-head);
   font-size: 1.3rem;
   font-weight: 800;
@@ -1989,7 +1965,7 @@ select.input {
 
 .tab--active {
   background: var(--gradient);
-  color: #1a0f08;
+  color: #222831;
 }
 
 .tab__count {
@@ -2374,7 +2350,6 @@ select.input {
   }
 }
 
-/* Respect the OS "reduce motion" setting */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
