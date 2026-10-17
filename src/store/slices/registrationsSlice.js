@@ -1,36 +1,12 @@
-/**
- * ============================================================
- *  registrationsSlice — which events the logged-in user joined
- * ============================================================
- *
- * Shape of the state:
- *
- *   byUser: {
- *     "user_1699...": [ { id, name, date, venue, ..., registeredAt, tickets } ],
- *     "user_1700...": [ ... ]
- *   }
- *
- * Keying by user id is what "associate registration information with the
- * logged-in user" means (requirement 4) — each account sees only its own
- * registrations, and they survive a refresh because we mirror the whole
- * object into localStorage after every change.
- *
- * We store a *snapshot* of the event (name, date, venue, image) rather than
- * just the id, so the My Events page can render instantly without making
- * one API request per registered event.
- */
-
 import { createSlice } from '@reduxjs/toolkit'
 import { loadFromStorage, saveToStorage, STORAGE_KEYS } from '../../utils/localStorage'
 import { isPastEvent } from '../../utils/format'
 
 const initialState = {
   byUser: loadFromStorage(STORAGE_KEYS.registrations, {}),
-  // Feedback shown as a toast after registering / cancelling.
-  feedback: null, // { type: 'success' | 'error' | 'info', message: string }
+  feedback: null, 
+  sortBy: 'date',
 }
-
-/** Helper so we don't repeat the save line in every reducer. */
 function persist(state) {
   saveToStorage(STORAGE_KEYS.registrations, state.byUser)
 }
@@ -39,10 +15,6 @@ const registrationsSlice = createSlice({
   name: 'registrations',
   initialState,
   reducers: {
-    /**
-     * Register the current user for an event.
-     * payload: { userId, event, tickets }
-     */
     registerForEvent(state, action) {
       const { userId, event, tickets = 1 } = action.payload
 
@@ -116,8 +88,6 @@ const registrationsSlice = createSlice({
           : 'Registration cancelled.',
       }
     },
-
-    /** Change how many tickets a registration is for. */
     updateTicketCount(state, action) {
       const { userId, eventId, tickets } = action.payload
       const registration = state.byUser[userId]?.find((r) => r.id === eventId)
@@ -127,6 +97,9 @@ const registrationsSlice = createSlice({
         persist(state)
       }
     },
+    setSortBy(state, action) {
+      state.sortBy = action.payload
+    },
 
     /** Dismiss the toast. */
     clearFeedback(state) {
@@ -135,41 +108,56 @@ const registrationsSlice = createSlice({
   },
 })
 
-export const { registerForEvent, cancelRegistration, updateTicketCount, clearFeedback } =
-  registrationsSlice.actions
+export const {
+  registerForEvent,
+  cancelRegistration,
+  updateTicketCount,
+  setSortBy,
+  clearFeedback,
+} = registrationsSlice.actions
 
-/* ------------------------------------------------------------------
- *  Selectors
- *
- *  These read from two slices at once (auth + registrations), which is
- *  perfectly fine — a selector receives the whole Redux state.
- * ------------------------------------------------------------------ */
 
-/** All registrations belonging to the logged-in user. */
 export const selectMyRegistrations = (state) => {
   const userId = state.auth.user?.id
   if (!userId) return []
   return state.registrations.byUser[userId] ?? []
 }
-
-/** Newest first — nicer default order in My Events. */
 export const selectMyRegistrationsSorted = (state) =>
   [...selectMyRegistrations(state)].sort(
     (a, b) => new Date(b.registeredAt) - new Date(a.registeredAt)
   )
+function sortRegistrations(list, sortBy, newestDateFirst = false) {
+  const sorted = [...list]
 
-/** Split into upcoming vs completed (requirement 5). */
+  if (sortBy === 'recent') {
+    // Most recently registered first
+    return sorted.sort((a, b) => new Date(b.registeredAt) - new Date(a.registeredAt))
+  }
+
+  if (sortBy === 'name') {  
+    return sorted.sort((a, b) => a.name.localeCompare(b.name))
+  }
+  return sorted.sort((a, b) =>
+    newestDateFirst
+      ? (b.date ?? '').localeCompare(a.date ?? '')
+      : (a.date ?? '').localeCompare(b.date ?? '')
+  )
+}
 export const selectUpcomingRegistrations = (state) =>
-  selectMyRegistrations(state)
-    .filter((r) => !isPastEvent(r.date))
-    .sort((a, b) => (a.date ?? '').localeCompare(b.date ?? ''))
+  sortRegistrations(
+    selectMyRegistrations(state).filter((r) => !isPastEvent(r.date)),
+    state.registrations.sortBy
+  )
 
 export const selectCompletedRegistrations = (state) =>
-  selectMyRegistrations(state)
-    .filter((r) => isPastEvent(r.date))
-    .sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''))
+  sortRegistrations(
+    selectMyRegistrations(state).filter((r) => isPastEvent(r.date)),
+    state.registrations.sortBy,
+    true
+  )
 
-/** Used by the Register button to know if it should say "Registered". */
+export const selectSortBy = (state) => state.registrations.sortBy
+
 export const selectIsRegisteredFor = (eventId) => (state) =>
   selectMyRegistrations(state).some((r) => r.id === eventId)
 

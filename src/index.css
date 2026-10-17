@@ -1,5 +1,4 @@
 :root {
-
   --bg: #222831;
   --surface: #272c35;
   --surface-2: #2e343d;
@@ -7,18 +6,16 @@
   --border: #3c424c;
   --border-strong: #4e555f;
 
+  /* Text */
   --text: #eeeeee;
   --text-muted: #b2b9c1;
   --text-dim: #868e99;
-
-
   --accent: #76abae;
   --accent-soft: #9cc6c8;
   --accent-2: #5c9093;
   --accent-3: #8fbcbe;
   --gradient: linear-gradient(118deg, #76abae 0%, #8fbcbe 52%, #5c9093 100%);
 
- 
   --success: #7fbfa3;
   --warn: #e2b872;
   --danger: #e08c8c;
@@ -38,7 +35,9 @@
   --maxw: 1200px;
 }
 
-
+/* ------------------------------------------------------------------
+   2. Reset + base
+   ------------------------------------------------------------------ */
 *,
 *::before,
 *::after {
@@ -55,7 +54,7 @@ html {
 
 body {
   background-color: var(--bg);
-  /* Two soft radial glows so the dark background isn't flat */
+
   background-image: radial-gradient(900px 500px at 12% -5%, rgba(118, 171, 174, 0.16), transparent 70%),
     radial-gradient(800px 420px at 92% 4%, rgba(118, 171, 174, 0.12), transparent 70%);
   background-attachment: fixed;
@@ -118,7 +117,9 @@ code {
   background: rgba(118, 171, 174, 0.3);
 }
 
-
+/* ------------------------------------------------------------------
+   3. Layout helpers
+   ------------------------------------------------------------------ */
 .app-shell {
   display: flex;
   flex-direction: column;
@@ -189,9 +190,6 @@ code {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
-/* ------------------------------------------------------------------
-   4. Buttons, inputs, tags
-   ------------------------------------------------------------------ */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -1978,6 +1976,34 @@ select.input {
 
 .tab:not(.tab--active) .tab__count {
   background: var(--surface-3);
+}
+
+/* Tabs on the left, the sort dropdown on the right */
+.my-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.my-toolbar .tabs {
+  margin-bottom: 0;
+}
+
+.sort-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.sort-field select {
+  width: auto;
+  padding-block: 8px;
 }
 
 .reg-list {

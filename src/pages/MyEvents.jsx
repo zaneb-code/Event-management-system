@@ -1,11 +1,3 @@
-/**
- * My Events (requirement 5) — a protected page listing the logged-in
- * user's registrations, split into Upcoming and Completed.
- *
- * All the splitting logic lives in the selectors in registrationsSlice,
- * so this page just picks a tab and renders.
- */
-
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -15,12 +7,13 @@ import { selectCurrentUser } from '../store/slices/authSlice'
 import {
   cancelRegistration,
   updateTicketCount,
+  setSortBy,
   selectUpcomingRegistrations,
   selectCompletedRegistrations,
+  selectSortBy,
 } from '../store/slices/registrationsSlice'
 import { formatDate, formatTime, formatLocation, getInitials } from '../utils/format'
 
-/** One row in the list — kept here because it is only used on this page. */
 function RegistrationRow({ registration, isPast, onCancel, onTickets }) {
   return (
     <article className={`reg-row ${isPast ? 'reg-row--past' : ''}`}>
@@ -99,6 +92,7 @@ export default function MyEvents() {
   const user = useSelector(selectCurrentUser)
   const upcoming = useSelector(selectUpcomingRegistrations)
   const completed = useSelector(selectCompletedRegistrations)
+  const sortBy = useSelector(selectSortBy)
 
   const [tab, setTab] = useState('upcoming')
 
@@ -140,24 +134,40 @@ export default function MyEvents() {
         </div>
       </header>
 
-      {/* ---------------- Tabs ---------------- */}
-      <div className="tabs" role="tablist">
-        <button
-          role="tab"
-          aria-selected={tab === 'upcoming'}
-          className={`tab ${tab === 'upcoming' ? 'tab--active' : ''}`}
-          onClick={() => setTab('upcoming')}
-        >
-          Upcoming <span className="tab__count">{upcoming.length}</span>
-        </button>
-        <button
-          role="tab"
-          aria-selected={tab === 'completed'}
-          className={`tab ${tab === 'completed' ? 'tab--active' : ''}`}
-          onClick={() => setTab('completed')}
-        >
-          Completed <span className="tab__count">{completed.length}</span>
-        </button>
+      {/* ---------------- Tabs + sort ---------------- */}
+      <div className="my-toolbar">
+        <div className="tabs" role="tablist">
+          <button
+            role="tab"
+            aria-selected={tab === 'upcoming'}
+            className={`tab ${tab === 'upcoming' ? 'tab--active' : ''}`}
+            onClick={() => setTab('upcoming')}
+          >
+            Upcoming <span className="tab__count">{upcoming.length}</span>
+          </button>
+          <button
+            role="tab"
+            aria-selected={tab === 'completed'}
+            className={`tab ${tab === 'completed' ? 'tab--active' : ''}`}
+            onClick={() => setTab('completed')}
+          >
+            Completed <span className="tab__count">{completed.length}</span>
+          </button>
+        </div>
+
+        {}
+        <label className="sort-field">
+          <span>Sort by</span>
+          <select
+            className="input"
+            value={sortBy}
+            onChange={(e) => dispatch(setSortBy(e.target.value))}
+          >
+            <option value="date">Event date</option>
+            <option value="recent">Recently registered</option>
+            <option value="name">Event name (A–Z)</option>
+          </select>
+        </label>
       </div>
 
       {/* ---------------- List ---------------- */}
