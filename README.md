@@ -3,7 +3,7 @@
 A React application for exploring live events, registering for them, and managing your
 registrations. Event data comes from the **Ticketmaster Discovery API**.
 
-Built for *Web Programming — Assignment 2*.
+Built for *Web Programming*.
 
 Repository: <https://github.com/zaneb-code/Event-management-system>
 
@@ -110,8 +110,8 @@ add one instead of failing silently.
 ### Other commands
 
 ```bash
-npm run build     # production build into dist/
-npm run preview   # serve that build locally
+npm run build    
+npm run preview   
 ```
 
 ---
