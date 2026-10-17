@@ -1,8 +1,3 @@
-/**
- * ErrorMessage — shown whenever an API thunk ends up in the `failed` state.
- * The optional `onRetry` prop renders a button that re-dispatches the fetch.
- */
-
 export default function ErrorMessage({ message, onRetry, title = 'Something went wrong' }) {
   return (
     <div className="notice notice--error" role="alert">
@@ -22,7 +17,7 @@ export default function ErrorMessage({ message, onRetry, title = 'Something went
   )
 }
 
-/** EmptyState — "no results" is not an error, so it gets its own look. */
+
 export function EmptyState({ title = 'Nothing here yet', message, action }) {
   return (
     <div className="empty-state">

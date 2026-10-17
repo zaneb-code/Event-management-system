@@ -1,8 +1,3 @@
-/**
- * Shown instead of a confusing 401 error when the .env file has no key yet.
- * Handy when someone clones the repo for the first time.
- */
-
 import { hasApiKey } from '../api/ticketmaster'
 
 export default function ApiKeyNotice() {

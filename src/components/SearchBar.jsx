@@ -1,19 +1,8 @@
-/**
- * SearchBar — free-text event search (requirement 2).
- *
- * The typed text is kept in local component state while typing, and only
- * pushed into Redux when the form is submitted. That keeps us well under
- * Ticketmaster's 2-requests-per-second limit (we would blow straight
- * through it if we searched on every keystroke).
- */
-
 import { useState, useEffect } from 'react'
 
 export default function SearchBar({ value = '', onSearch, placeholder = 'Search events, artists, teams…' }) {
   const [text, setText] = useState(value)
 
-  // Keep the input in sync if the filter is cleared from elsewhere
-  // (for example the "Reset filters" button).
   useEffect(() => {
     setText(value)
   }, [value])

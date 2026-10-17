@@ -1,11 +1,3 @@
-/**
- * EventCard — one event in a grid. Reused by Home, Events and Categories.
- *
- * Props:
- *   event      the normalised event object from our API helper
- *   compact    smaller variant without the register button
- */
-
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 

@@ -1,18 +1,3 @@
-/**
- * FilterPanel — filter the events list (requirement 2).
- *
- * Filters offered:
- *   - Category  (Ticketmaster "classificationName": Music, Sports, …)
- *   - City      (free text, e.g. "London")
- *   - Country   (two-letter code the API expects)
- *   - Sort      (date / name / relevance)
- *   - Upcoming only (adds startDateTime = today)
- *
- * The values live in Redux (`events.filters`) so the Events page can turn
- * them straight into API parameters, and so a category clicked on the
- * Categories page arrives here already applied.
- */
-
 const CATEGORIES = ['Music', 'Sports', 'Arts & Theatre', 'Film', 'Miscellaneous']
 
 const COUNTRIES = [

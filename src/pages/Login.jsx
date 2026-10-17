@@ -1,11 +1,3 @@
-/**
- * Login page (requirement 1).
- *
- * Form state is plain React `useState` — form inputs are local UI state and
- * do not belong in Redux. Only the *result* (who is logged in) goes into
- * Redux, by dispatching `loginUser`.
- */
-
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'

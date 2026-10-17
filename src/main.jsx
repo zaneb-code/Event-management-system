@@ -1,12 +1,3 @@
-/**
- * Entry point.
- *
- * Two providers wrap the whole app:
- *   <Provider>      makes the Redux store available to every component
- *                   (that is what lets us call useSelector / useDispatch)
- *   <BrowserRouter> enables client-side routing from React Router
- */
-
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'

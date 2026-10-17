@@ -1,11 +1,3 @@
-/**
- * Events — the main exploration page (requirement 2).
- *
- * Shows search, filters, a responsive grid of results and pagination.
- * Every filter value lives in Redux, so this page is mostly "read the
- * filters, turn them into API parameters, dispatch the thunk".
- */
-
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -40,17 +32,7 @@ export default function Events() {
   const page = useSelector(selectEventsPage)
   const filters = useSelector(selectFilters)
 
-  // Mobile: show/hide the filter panel
   const [filtersOpen, setFiltersOpen] = useState(false)
-
-  /**
-   * Fetch whenever the filters or the page number change.
-   *
-   * The 450 ms timeout is a debounce: typing in the City box updates Redux
-   * on every keystroke, and without this we would fire a request per letter
-   * and hit Ticketmaster's rate limit. Returning clearTimeout cancels the
-   * pending request if the user keeps typing.
-   */
   useEffect(() => {
     if (!hasApiKey) return
 
@@ -64,7 +46,7 @@ export default function Events() {
           startDateTime: filters.upcomingOnly ? todayAsApiDate() : '',
           sort: filters.sort,
           page: page.number,
-          size: 12,
+          size: 9,
         })
       )
     }, 450)
@@ -161,7 +143,7 @@ export default function Events() {
                     startDateTime: filters.upcomingOnly ? todayAsApiDate() : '',
                     sort: filters.sort,
                     page: page.number,
-                    size: 12,
+                    size: 9,
                   })
                 )
               }

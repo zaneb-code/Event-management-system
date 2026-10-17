@@ -1,12 +1,3 @@
-/**
- * Loading indicators (requirement: "handle loading and error states").
- *
- * Two exports:
- *   <Loader />        a simple spinner with a label
- *   <CardSkeleton />  grey placeholder shaped like an EventCard, which
- *                     stops the layout from jumping when data arrives
- */
-
 export default function Loader({ label = 'Loading…' }) {
   return (
     <div className="loader" role="status" aria-live="polite">
@@ -29,8 +20,6 @@ export function CardSkeleton() {
     </article>
   )
 }
-
-/** A grid of skeleton cards — handy while the events list loads. */
 export function SkeletonGrid({ count = 6 }) {
   return (
     <div className="grid grid--cards">

@@ -1,11 +1,3 @@
-/**
- * EventDetails — everything the API gives us about one event
- * (requirement 3), plus the register / cancel control.
- *
- * The event id comes from the URL via `useParams`, which means the page is
- * shareable and survives a refresh.
- */
-
 import { useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'

@@ -1,12 +1,3 @@
-/**
- * Toast — the feedback message after registering / cancelling
- * (requirement 4: "provide appropriate feedback after registration").
- *
- * The message itself lives in Redux (`registrations.feedback`) so that any
- * component can trigger it just by dispatching an action. This component
- * only displays it and clears it after 4 seconds.
- */
-
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectFeedback, clearFeedback } from '../store/slices/registrationsSlice'

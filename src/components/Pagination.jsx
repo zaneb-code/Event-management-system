@@ -1,20 +1,12 @@
-/**
- * Pagination for the events list.
- *
- * Note on the Ticketmaster API: it refuses requests where
- * (page + 1) * size > 1000, so we cap the page count accordingly
- * instead of letting the user click into an error.
- */
-
 export default function Pagination({ page, totalPages, size, onPageChange }) {
   const maxAllowedPages = Math.floor(1000 / size)
   const safeTotal = Math.min(totalPages, maxAllowedPages)
 
   if (safeTotal <= 1) return null
 
-  const current = page + 1 // the API is zero-based, humans are not
+  const current = page + 1 
 
-  // Build a short window of page numbers around the current page.
+
   const windowSize = 5
   let start = Math.max(1, current - Math.floor(windowSize / 2))
   const end = Math.min(safeTotal, start + windowSize - 1)

@@ -1,11 +1,3 @@
-/**
- * Register page (requirement 1).
- *
- * Collects Name, Email and Password (plus a confirmation), validates them,
- * then dispatches `registerUser`. On success the slice sets a message and
- * we send the user to the login page.
- */
-
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -18,7 +10,6 @@ import {
 } from '../store/slices/authSlice'
 import { validateRegisterForm } from '../utils/format'
 
-/** Rough password strength meter, for a nicer form experience. */
 function passwordStrength(password) {
   let score = 0
   if (password.length >= 6) score += 1

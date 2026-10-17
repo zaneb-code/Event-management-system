@@ -1,10 +1,3 @@
-/**
- * RegisterButton — the reusable "Register / Cancel registration" control.
- *
- * Used on both the event card and the event details page, which is exactly
- * the point of a reusable component: the duplicate-registration rule and
- * the "log in first" rule are written once, here.
- */
 
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'

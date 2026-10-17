@@ -1,17 +1,3 @@
-/**
- * ============================================================
- *  App — route definitions (requirement 7: React Router)
- * ============================================================
- *
- *   /                 Home          — hero + upcoming events
- *   /events           Events        — list, search, filters, pagination
- *   /events/:id       EventDetails  — full details for one event
- *   /categories       Categories    — browse by category
- *   /login            Login         — public only
- *   /register         Register      — public only
- *   /my-events        MyEvents      — PROTECTED, logged-in users only
- *   *                 NotFound      — anything else
- */
 
 import { Routes, Route } from 'react-router-dom'
 

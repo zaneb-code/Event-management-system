@@ -1,8 +1,3 @@
-/**
- * Home — landing page with a hero, quick category links and a strip of
- * upcoming events pulled from the API.
- */
-
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'

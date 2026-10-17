@@ -1,11 +1,3 @@
-/**
- * Navbar — site navigation + the authentication area.
- *
- * Reads the logged-in user straight from Redux (`useSelector`) and
- * dispatches `logoutUser` (`useDispatch`), so it always reflects the
- * real auth state no matter which page you are on.
- */
-
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -26,22 +18,8 @@ export default function Navbar() {
   const user = useSelector(selectCurrentUser)
   const isAuthenticated = useSelector(selectIsAuthenticated)
   const registrationCount = useSelector(selectRegistrationCount)
-
-  // Controls the mobile dropdown
   const [menuOpen, setMenuOpen] = useState(false)
-  // Remembers that a logout is in progress (see the effect below)
   const [loggingOut, setLoggingOut] = useState(false)
-
-  /**
-   * Logging out happens in two steps, on purpose.
-   *
-   * If we cleared the session while still sitting on a protected page like
-   * /my-events, ProtectedRoute would immediately see "not authenticated"
-   * and redirect to /login — overriding wherever we tried to send the user.
-   *
-   * So: step 1 (here) just navigates home. Step 2 (the effect) clears the
-   * session once we have safely arrived, which keeps the two from racing.
-   */
   function handleLogout() {
     setMenuOpen(false)
     setLoggingOut(true)
@@ -72,7 +50,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Hamburger — only visible on small screens via CSS */}
+        {/* Hamburger; only visible on small screens */}
         <button
           className="navbar__toggle"
           onClick={() => setMenuOpen((open) => !open)}
